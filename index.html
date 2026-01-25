@@ -1,895 +1,352 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mr. Quantum — MRQTUM</title>
-  <meta name="description" content="Mr. Quantum (MRQTUM) — the meme coin that collapses timelines into vibes. Built for community and clean execution." />
-  <meta property="og:title" content="Mr. Quantum — MRQTUM" />
-  <meta property="og:description" content="A meme coin built for fun, clarity, and community execution." />
-  <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#060812" />
-  <link rel="icon" href="logo.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr. Quantum | The SUI Science Meme</title>
+    <meta name="description" content="Decentralized quantum chaos on the SUI Network.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Orbitron', 'sans-serif'], // 헤드라인 폰트 변경
+                    },
+                    colors: {
+                        sui: {
+                            light: '#4DA2FF',
+                            DEFAULT: '#0053D6',
+                        },
+                        neon: {
+                            cyan: '#00fff2',
+                            purple: '#bc13fe',
+                            pink: '#ff0055'
+                        }
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 20px rgba(0, 255, 242, 0.5)',
+                        'neon-purple': '0 0 20px rgba(188, 19, 254, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050714;
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
 
-  <style>
-    :root{
-      --bg0:#050713;
-      --bg1:#0b1030;
-      --txt:#e9edf7;
-      --muted: rgba(233,237,247,.68);
-      --line: rgba(233,237,247,.10);
-      --line2: rgba(233,237,247,.16);
+        /* --- 배경 효과: 양자장 & 회로 --- */
+        .quantum-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(188, 19, 254, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 83, 214, 0.2) 0%, transparent 50%);
+            background-color: #050714;
+        }
 
-      --card: rgba(255,255,255,.04);
-      --card2: rgba(255,255,255,.06);
+        /* 회로 기판 패턴 오버레이 */
+        .circuit-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h80v80h-80z' fill='none' stroke='rgba(0, 255, 242, 0.05)' stroke-width='1'/%3E%3Cpath d='M30 30h40v40h-40z' fill='none' stroke='rgba(188, 19, 254, 0.05)' stroke-width='1'/%3E%3C/svg%3E");
+            mask-image: radial-gradient(circle, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+        }
 
-      /* From your logo vibes */
-      --blue:#2dd4ff;
-      --deepblue:#2473ff;
-      --purple:#7c3aed;
-      --pink:#ff4d8d;
+        /* 떠다니는 입자 애니메이션 */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+            animation: floatParticle linear infinite;
+            opacity: 0.6;
+        }
+        @keyframes floatParticle {
+            from { transform: translateY(0) translateX(0); opacity: 0.6; }
+            to { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
 
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
-      --radius: 18px;
-      --max: 1180px;
-    }
+        /* --- UI 스타일: 글래스 + 네온 보더 --- */
+        .glass-card {
+            background: rgba(10, 14, 28, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 255, 242, 0.2); /* 네온 사이언 테두리 */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.3);
+        }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-      color:var(--txt);
-      line-height:1.6;
-      background:
-        radial-gradient(1050px 680px at 18% 10%, rgba(36,115,255,.16), transparent 55%),
-        radial-gradient(880px 650px at 78% 18%, rgba(124,58,237,.16), transparent 55%),
-        radial-gradient(800px 600px at 55% 90%, rgba(255,77,141,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px 78px}
+        /* --- 글리치 텍스트 효과 --- */
+        .glitch-text {
+            position: relative;
+            text-shadow: 2px 2px 0px var(--neon-purple), -2px -2px 0px var(--neon-cyan);
+            animation: glitchSkew 1s infinite linear alternate-reverse;
+        }
+        @keyframes glitchSkew {
+            0% { transform: skewX(0deg); }
+            10% { transform: skewX(-2deg); }
+            20% { transform: skewX(1deg); }
+            90% { transform: skewX(0deg); }
+            100% { transform: skewX(2deg); }
+        }
 
-    /* Subtle grid overlay */
-    .gridbg{
-      position:fixed; inset:0; pointer-events:none;
-      background:
-        linear-gradient(to right, rgba(233,237,247,.035) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(233,237,247,.035) 1px, transparent 1px);
-      background-size: 84px 84px;
-      mask-image: radial-gradient(680px 460px at 50% 16%, black 38%, transparent 82%);
-      opacity:.55;
-    }
+        /* --- 로고 애니메이션 강화 --- */
+        .floating-logo {
+            animation: quantumFloat 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(188, 19, 254, 0.6));
+        }
+        @keyframes quantumFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); scale: 1; }
+            50% { transform: translateY(-25px) rotate(3deg); scale: 1.05; }
+        }
 
-    /* NAV (pepe.vip-like simple anchors + Buy button) */
-    .nav{
-      position:sticky; top:0; z-index:60;
-      backdrop-filter: blur(12px);
-      background: linear-gradient(to bottom, rgba(5,7,19,.78), rgba(5,7,19,.38));
-      border-bottom:1px solid var(--line);
-    }
-    .nav-inner{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:14px 18px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:900; letter-spacing:.2px;
-    }
-    .brand img{
-      width:34px; height:34px; border-radius:12px;
-      background: rgba(255,255,255,.02);
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow: 0 16px 34px rgba(36,115,255,.10);
-      object-fit:cover;
-    }
-    .grad{
-      background: linear-gradient(90deg, var(--blue), var(--purple), var(--pink));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-    .nav-links{display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:flex-end}
-    .chip{
-      padding:9px 12px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background: rgba(255,255,255,.03);
-      color: rgba(233,237,247,.88);
-      font-size:13px;
-      transition:.15s transform,.15s border-color,.15s background;
-    }
-    .chip:hover{
-      transform:translateY(-1px);
-      border-color: rgba(45,212,255,.28);
-      background: rgba(255,255,255,.05);
-    }
-    .btn{
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid rgba(124,58,237,.55);
-      background: linear-gradient(135deg, rgba(36,115,255,.26), rgba(124,58,237,.26), rgba(255,77,141,.18));
-      box-shadow: 0 16px 40px rgba(124,58,237,.12);
-      font-weight:900;
-      font-size:13px;
-      display:inline-flex; align-items:center; gap:8px;
-      transition:.15s transform,.15s filter;
-      cursor:pointer;
-    }
-    .btn:hover{transform:translateY(-1px); filter:brightness(1.06)}
-    .dot{
-      width:10px; height:10px; border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, var(--blue), var(--purple));
-      box-shadow: 0 0 0 5px rgba(45,212,255,.08);
-    }
-
-    /* CARDS / LAYOUT */
-    .section{padding-top:28px}
-    .card{
-      border:1px solid var(--line);
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-    .card:before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(760px 300px at 20% 0%, rgba(45,212,255,.10), transparent 55%),
-        radial-gradient(760px 300px at 80% 0%, rgba(124,58,237,.10), transparent 55%),
-        radial-gradient(760px 300px at 50% 100%, rgba(255,77,141,.06), transparent 55%);
-      opacity:.65;
-      pointer-events:none;
-    }
-    .card > *{position:relative}
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:14px;
-      margin-top:14px;
-    }
-    .col-12{grid-column: span 12}
-    .col-8{grid-column: span 8}
-    .col-6{grid-column: span 6}
-    .col-4{grid-column: span 4}
-    @media (max-width: 980px){
-      .col-8,.col-6,.col-4{grid-column: span 12}
-    }
-
-    .box{padding:18px 18px 18px}
-    .muted{color: var(--muted); font-size:14px; margin:0}
-    .mono{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      letter-spacing:.2px;
-      word-break: break-all;
-      font-weight:800;
-    }
-
-    /* HERO */
-    .hero{
-      padding:44px 0 14px;
-      display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap:14px;
-      align-items:stretch;
-    }
-    @media (max-width: 980px){
-      .hero{grid-template-columns:1fr; padding-top:30px}
-    }
-    .hero-main{padding:26px 22px}
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:8px 10px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      font-size:13px;
-    }
-    h1{
-      margin:14px 0 12px;
-      font-size:52px;
-      line-height:1.03;
-      letter-spacing:-.9px;
-    }
-    @media (max-width: 520px){ h1{font-size:40px} }
-    .lead{
-      color: rgba(233,237,247,.88);
-      font-size:16px;
-      max-width:70ch;
-      margin:0 0 18px;
-    }
-    .cta{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-    .ghost{
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      font-weight:900;
-      font-size:13px;
-      transition:.15s border-color,.15s transform,.15s background;
-      display:inline-flex; align-items:center; gap:8px;
-      cursor:pointer;
-    }
-    .ghost:hover{
-      transform:translateY(-1px);
-      border-color: rgba(255,77,141,.22);
-      background: rgba(255,255,255,.05);
-    }
-    .subnote{margin-top:14px; color: rgba(233,237,247,.62); font-size:12.5px}
-
-    /* Right panel (Quick Facts) */
-    .side{padding:16px}
-    .side h3{margin:0 0 10px; font-size:14px; color: rgba(233,237,247,.92)}
-    .kv{
-      display:grid; gap:10px;
-      padding:14px;
-      border:1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255,255,255,.03);
-      margin-bottom:10px;
-    }
-    .label{color: var(--muted); font-size:12px}
-    .value{font-size:13px; font-weight:900}
-
-    .pills{display:flex; gap:8px; flex-wrap:wrap}
-    .pill{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      font-size:12px;
-      color: rgba(233,237,247,.86);
-      transition:.15s border-color,.15s transform,.15s background;
-    }
-    .pill:hover{
-      transform:translateY(-1px);
-      border-color: rgba(45,212,255,.22);
-      background: rgba(255,255,255,.05);
-    }
-
-    .copy-row{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
-    .copy{
-      padding:8px 12px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      font-size:12px;
-      cursor:pointer; user-select:none;
-      transition:.15s transform,.15s border-color,.15s background;
-      font-weight:900;
-    }
-    .copy:hover{
-      transform:translateY(-1px);
-      border-color: rgba(124,58,237,.24);
-      background: rgba(255,255,255,.05);
-    }
-    .tiny{font-size:12px; color: rgba(233,237,247,.55)}
-
-    /* Mini feature cards */
-    .feature h2{margin:0 0 10px; font-size:18px; letter-spacing:-.25px}
-    ul.clean,ol.clean{margin:10px 0 0; padding:0 0 0 18px; color: rgba(233,237,247,.88)}
-    ul.clean li,ol.clean li{margin:6px 0}
-
-    /* KPI blocks */
-    .kpis{display:grid; gap:10px; margin-top:12px}
-    .kpi{
-      display:flex; justify-content:space-between; gap:10px;
-      padding:12px 14px;
-      border:1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255,255,255,.03);
-      align-items:flex-start;
-    }
-    .kpi b{font-size:13px}
-    .kpi span{color: rgba(233,237,247,.62); font-size:12px}
-
-    .callout{
-      margin-top:14px;
-      padding:12px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,77,141,.18);
-      background: rgba(255,77,141,.06);
-      color: rgba(233,237,247,.88);
-      font-size:13px;
-    }
-
-    /* ATM Panel */
-    .atm-title{
-      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      margin-bottom:8px;
-    }
-    .status-pill{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      font-size:12px;
-      font-weight:900;
-    }
-
-    input.atm-input{
-      width:100%;
-      margin-top:10px;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
-      color:var(--txt);
-      outline:none;
-    }
-    input.atm-input:focus{
-      border-color: rgba(45,212,255,.28);
-      box-shadow: 0 0 0 6px rgba(45,212,255,.06);
-    }
-
-    /* Footer */
-    .foot{
-      margin-top:24px;
-      padding:16px 2px 0;
-      border-top:1px solid var(--line);
-      color: rgba(233,237,247,.60);
-      font-size:12px;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      html{scroll-behavior:auto}
-    }
-  </style>
+        /* 네온 버튼 효과 */
+        .neon-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .neon-button:hover {
+            background-color: var(--neon-cyan);
+            color: black;
+            box-shadow: 0 0 30px var(--neon-cyan);
+        }
+        .neon-button::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+    </style>
 </head>
+<body class="antialiased font-sans selection:bg-neon-cyan selection:text-black">
 
-<body>
-  <div class="gridbg" aria-hidden="true"></div>
-
-  <header class="nav">
-    <div class="nav-inner">
-      <div class="brand">
-        <img src="logo.png" alt="Mr. Quantum logo" />
-        <div>Mr. <span class="grad">Quantum</span></div>
-      </div>
-
-      <nav class="nav-links" aria-label="Primary">
-        <a class="chip" href="#home">HOME</a>
-        <a class="chip" href="#about">ABOUT</a>
-        <a class="chip" href="#atm">ATM SWAP</a>
-        <a class="chip" href="#how">HOW TO BUY</a>
-        <a class="chip" href="#tokenomics">TOKENOMICS</a>
-        <a class="chip" href="#roadmap">ROADMAP</a>
-        <a class="btn" id="buyBtn" href="#" target="_blank" rel="noopener noreferrer"><span class="dot"></span>Buy Now</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="wrap" id="home">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="card hero-main">
-        <div class="kicker"><span class="dot"></span> collapse the timeline · into vibes</div>
-
-        <h1>
-          MRQTUM<br/>
-          <span class="grad">Mr. Quantum</span>
-        </h1>
-
-        <p class="lead">
-          A meme coin built for global community energy and clean execution.
-          Simple UI, transparent links, and an “ATM-style” swap flow that feels instantly understandable.
-        </p>
-
-        <div class="cta">
-          <a class="btn" href="#atm"><span class="dot"></span>Use ATM Swap</a>
-          <button class="ghost" id="copyCA">Copy Contract (CA)</button>
-          <a class="ghost" href="#how">How to Buy</a>
+    <div class="quantum-bg"></div>
+    <div class="circuit-overlay"></div>
+    <nav class="fixed w-full z-50 top-0 border-b border-neon-cyan/20 bg-[#050714]/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-r from-neon-purple to-neon-cyan animate-pulse"></div>
+                    <span class="font-heading font-black text-xl tracking-wider text-white glitch-text">MR. QUANTUM</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#lab" class="hover:text-neon-cyan transition px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest">THE LAB</a>
+                        <a href="#tokenomics" class="hover:text-neon-cyan transition px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest">BLUEPRINT</a>
+                        <a href="#swap" class="bg-sui border border-neon-cyan text-white hover:bg-neon-cyan hover:text-black transition px-6 py-2 rounded-none text-sm font-bold uppercase tracking-widest shadow-neon-cyan">INITIATE SWAP</a>
+                    </div>
+                </div>
+            </div>
         </div>
+    </nav>
 
-        <div class="subnote">
-          Not financial advice. Meme coins are high-risk. DYOR.
+    <section id="lab" class="relative pt-40 pb-20 lg:pt-56 overflow-hidden min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center gap-16 z-10">
+            
+            <div class="w-full lg:w-1/2 text-center lg:text-left">
+                <div class="inline-block px-4 py-2 mb-6 border-2 border-neon-purple bg-black/50">
+                    <span class="text-neon-cyan text-sm font-bold tracking-[0.2em] uppercase">/// SUI NETWORK EXPERIMENT ///</span>
+                </div>
+                <h1 class="text-5xl lg:text-7xl font-heading font-black leading-none mb-6 glitch-text">
+                    SCHRÖDINGER'S <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-purple">MEME ASSET.</span>
+                </h1>
+                <p class="text-gray-300 text-lg mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0 font-mono">
+                    Is it a gem? Is it a rug? It exists in a superposition of both until you ape in. 
+                    <br><span class="text-neon-cyan">> Exploring quantum chaos on high-speed SUI rails.</span>
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
+                    <a href="#swap" class="neon-button bg-sui text-white px-8 py-4 font-heading font-bold uppercase tracking-wider flex items-center justify-center gap-3 border-2 border-neon-cyan">
+                        ENTER THE QUANTUM REALM <i class="fa-solid fa-atom fa-spin"></i>
+                    </a>
+                    <a href="https://t.me/" target="_blank" class="glass-card text-white px-8 py-4 font-heading font-bold uppercase tracking-wider transition flex items-center justify-center gap-3 hover:text-neon-purple">
+                        <i class="fa-brands fa-telegram"></i> JOIN LAB
+                    </a>
+                </div>
+            </div>
+
+            <div class="w-full lg:w-1/2 flex justify-center relative">
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-r from-neon-purple to-neon-cyan blur-[100px] opacity-40 -z-10 animate-pulse"></div>
+                
+                <img src="https://i.ibb.co/60qX5qH/image-9b9f5c.jpg" alt="Mr. Quantum Logo" class="relative w-72 h-72 lg:w-[500px] lg:h-[500px] object-cover rounded-full shadow-[0_0_50px_rgba(0,255,242,0.5)] floating-logo border-4 border-neon-purple/50 z-10">
+                
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] border-2 border-dashed border-neon-cyan/30 rounded-full animate-[spin_20s_linear_infinite]"></div>
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] h-[130%] border border-dotted border-neon-purple/30 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+            </div>
         </div>
-
-        <div class="callout">
-          Security: Always verify the Contract Address (CA) from official channels only.
-          Never trust DMs and avoid fake tokens.
-        </div>
-      </div>
-
-      <!-- Quick facts -->
-      <aside class="card side" aria-label="Quick facts">
-        <h3>Quick Facts</h3>
-
-        <div class="kv">
-          <div class="label">Network</div>
-          <div class="value" id="network">Sui</div>
-        </div>
-
-        <div class="kv">
-          <div class="label">Contract Address (CA)</div>
-          <div class="value mono" id="ca">TBA — paste contract address</div>
-          <div class="copy-row">
-            <div class="copy" data-copy="#ca">Copy CA</div>
-            <div class="tiny" id="copyStatus"></div>
-          </div>
-        </div>
-
-        <div class="kv">
-          <div class="label">Official Links</div>
-          <div class="pills">
-            <a class="pill" href="#" id="linkDex" target="_blank" rel="noopener noreferrer">DEX</a>
-            <a class="pill" href="#" id="linkX" target="_blank" rel="noopener noreferrer">X</a>
-            <a class="pill" href="#" id="linkTg" target="_blank" rel="noopener noreferrer">Telegram</a>
-            <a class="pill" href="#" id="linkDocs" target="_blank" rel="noopener noreferrer">Docs</a>
-          </div>
-          <div class="tiny" style="margin-top:8px">
-            Links open in a new tab.
-          </div>
-        </div>
-      </aside>
     </section>
 
-    <!-- FEATURES -->
-    <section class="section" id="about">
-      <div class="grid">
-        <div class="card col-4 box feature">
-          <h2>ABOUT</h2>
-          <p class="muted">
-            Mr. Quantum is built around one rule: keep it clean and public.
-            The meme is the culture. Execution is the credibility.
-          </p>
-        </div>
+    <section id="tokenomics" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl font-heading font-black mb-4 text-white glitch-text">THE EXPERIMENT BLUEPRINT</h2>
+                <p class="text-neon-cyan font-mono">> Analyzing token parameters...</p>
+            </div>
 
-        <div class="card col-4 box feature">
-          <h2>COMMUNITY</h2>
-          <p class="muted">
-            Weekly meme contests, creator rewards, and collabs.
-            A token that lives through attention and participation.
-          </p>
-        </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="glass-card p-10 rounded-none border-l-4 border-neon-cyan text-center group">
+                    <i class="fa-solid fa-flask-vial text-4xl text-neon-cyan mb-6 group-hover:animate-bounce"></i>
+                    <h3 class="text-xl font-heading font-bold mb-4 text-white">TOTAL SUPPLY</h3>
+                    <p class="text-5xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-neon-cyan mb-2">1 BILLION</p>
+                    <p class="text-sm text-gray-400 font-mono">Fixed Quantum Mass ($MRQ)</p>
+                </div>
 
-        <div class="card col-4 box feature">
-          <h2>NO BULLSH*T UX</h2>
-          <p class="muted">
-            CA copy, official links, and an ATM-style swap experience.
-            People instantly know what to do.
-          </p>
+                <div class="glass-card p-10 rounded-none border-l-4 border-neon-purple text-center group">
+                    <i class="fa-solid fa-ban text-4xl text-neon-purple mb-6 group-hover:animate-pulse"></i>
+                    <h3 class="text-xl font-heading font-bold mb-4 text-white">FRICTION (TAX)</h3>
+                    <p class="text-5xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-neon-purple mb-2">0% / 0%</p>
+                    <p class="text-sm text-gray-400 font-mono">Superfluidity Achieved</p>
+                </div>
+
+                <div class="glass-card p-10 rounded-none border-l-4 border-neon-pink text-center group">
+                    <i class="fa-solid fa-fire-flame-curved text-4xl text-neon-pink mb-6 group-hover:animate-pulse"></i>
+                    <h3 class="text-xl font-heading font-bold mb-4 text-white">LIQUIDITY POOL</h3>
+                    <p class="text-5xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-neon-pink mb-2">INCINERATED</p>
+                    <p class="text-sm text-gray-400 font-mono">LP Tokens Sent to Black Hole</p>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
-    <!-- ATM SWAP -->
-    <section class="section" id="atm">
-      <div class="card box">
-        <div class="atm-title">
-          <h2 style="margin:0; font-size:20px; letter-spacing:-.35px">MRQTUM ATM Swap</h2>
-          <span class="status-pill mono" id="atmStatus">Idle</span>
+    <section id="swap" class="py-32 relative z-10">
+        <div class="max-w-xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-heading font-black mb-4 text-white glitch-text">QUANTUM TUNNELING (SWAP)</h2>
+                <p class="text-neon-purple font-mono blink">> Initiate P2P Asset Transfer Protocol...</p>
+            </div>
+
+            <div class="glass-card rounded-none p-8 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink"></div>
+
+                <div class="bg-black/60 border-2 border-yellow-500/50 p-4 mb-8 flex gap-4 items-start">
+                    <i class="fa-solid fa-triangle-exclamation text-yellow-500 text-xl mt-1 animate-pulse"></i>
+                    <p class="text-xs text-yellow-200 font-mono leading-relaxed text-left">
+                        <strong>WARNING: EXPERIMENTAL TECH.</strong><br> 
+                        This is a peer-to-peer swap simulation for the $MRQ social experiment. No financial value guaranteed. Participate at your own quantum risk.
+                    </p>
+                </div>
+
+                <div class="space-y-2 mb-4">
+                    <div class="flex justify-between text-sm text-neon-cyan font-mono px-1">
+                        <span>> INSERT COIN (SUI)</span>
+                    </div>
+                    <div class="bg-[#050714] p-4 flex items-center justify-between border-2 border-gray-800 hover:border-neon-cyan transition group">
+                        <input type="number" placeholder="0.0" class="bg-transparent text-3xl font-heading text-white outline-none w-1/2 placeholder-gray-700 group-hover:text-neon-cyan transition">
+                        <div class="flex items-center gap-2 bg-gray-900 px-4 py-2 border border-gray-700">
+                            <img src="https://cryptologos.cc/logos/sui-sui-logo.png" class="w-6 h-6 rounded-full">
+                            <span class="font-heading font-bold">SUI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center -my-4 relative z-10 text-neon-purple text-2xl">
+                    <i class="fa-solid fa-arrow-down-long animate-bounce"></i>
+                </div>
+
+                <div class="space-y-2 mb-8">
+                    <div class="flex justify-between text-sm text-neon-purple font-mono px-1 mt-4">
+                        <span>> RECEIVE MATTER ($MRQ)</span>
+                    </div>
+                    <div class="bg-[#050714] p-4 flex items-center justify-between border-2 border-gray-800">
+                        <input type="text" placeholder="0.0" class="bg-transparent text-3xl font-heading text-white outline-none w-1/2 placeholder-gray-700 cursor-not-allowed" readonly>
+                        <div class="flex items-center gap-2 bg-gray-900 px-4 py-2 border border-gray-700">
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-r from-neon-purple to-neon-cyan"></div>
+                            <span class="font-heading font-bold">MRQ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-black/80 p-6 border-2 border-dashed border-neon-cyan text-center relative group">
+                    <p class="text-sm text-neon-cyan mb-4 font-heading tracking-widest">/// DEPOSIT SUI HERE ///</p>
+                    <div class="flex items-center justify-between bg-[#050714] p-4 border border-neon-cyan/30 cursor-pointer hover:bg-neon-cyan/10 transition" onclick="copyAddress()">
+                        <code class="text-sm text-white truncate font-mono" id="wallet-address">0x1234...YOUR_WALLET_ADDRESS...5678</code>
+                        <i class="fa-regular fa-copy text-neon-cyan"></i>
+                    </div>
+                    <p id="copy-msg" class="text-xs text-green-400 mt-2 opacity-0 transition font-mono absolute bottom-2 left-1/2 -translate-x-1/2">>> ADDRESS COPIED TO CLIPBOARD <<</p>
+                </div>
+
+                <button class="w-full mt-8 neon-button bg-neon-purple text-white font-heading font-black uppercase tracking-wider py-6 border-2 border-neon-cyan shadow-neon-purple hover:text-black">
+                    ENGAGE WARP DRIVE <i class="fa-solid fa-rocket"></i>
+                </button>
+            </div>
         </div>
-
-        <p class="muted">
-          Send SUI to the deposit address below. Once your deposit is detected by the engine,
-          MRQTUM is automatically sent back to the <b>sender wallet</b>.
-          This website never stores private keys.
-        </p>
-
-        <div class="grid" style="margin-top:12px">
-          <!-- LEFT -->
-          <div class="col-6">
-            <div class="kpi">
-              <div>
-                <b>Deposit Address (SUI)</b><br/>
-                <span class="mono" id="atmDepositAddr">0xDEPOSIT_ADDRESS_TBA</span>
-              </div>
-              <span>official</span>
-            </div>
-
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
-              <button class="btn" type="button" id="atmCopyAddr"><span class="dot"></span>Copy Address</button>
-              <a class="ghost" href="#" id="atmExplorerAddr" target="_blank" rel="noopener noreferrer">View on Explorer</a>
-            </div>
-
-            <div class="kpi" style="margin-top:12px">
-              <div>
-                <b>Rate</b><br/>
-                <span class="mono" id="atmRate">1 SUI → 10,000 MRQTUM</span>
-              </div>
-              <span>example</span>
-            </div>
-
-            <div class="kpi" style="margin-top:10px">
-              <div>
-                <b>Minimum Deposit</b><br/>
-                <span class="mono" id="atmMin">0.10 SUI</span>
-              </div>
-              <span>example</span>
-            </div>
-
-            <div class="kpi" style="margin-top:10px">
-              <div>
-                <b>Order ID</b><br/>
-                <span class="mono" id="atmOrderId">—</span>
-              </div>
-              <span>for matching</span>
-            </div>
-
-            <div class="callout">
-              Important: Send from a wallet you control. Some exchanges may not preserve the original sender address.
-            </div>
-          </div>
-
-          <!-- RIGHT -->
-          <div class="col-6">
-            <div class="kpi">
-              <div>
-                <b>Detected Deposit Tx</b><br/>
-                <span class="mono" id="atmDepositTx">—</span>
-              </div>
-              <span>tx</span>
-            </div>
-
-            <div class="kpi" style="margin-top:10px">
-              <div>
-                <b>Payout Tx (MRQTUM)</b><br/>
-                <span class="mono" id="atmPayoutTx">—</span>
-              </div>
-              <span>tx</span>
-            </div>
-
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px">
-              <button class="btn" type="button" id="atmCreateOrder"><span class="dot"></span>Create Order</button>
-              <button class="ghost" type="button" id="atmCheck">Check Status</button>
-            </div>
-
-            <div style="margin-top:12px; border:1px solid var(--line); border-radius:16px; background:rgba(255,255,255,.03); padding:12px 14px; max-height:220px; overflow:auto">
-              <div class="tiny" style="margin-bottom:6px">ATM Log</div>
-              <div id="atmLog" class="mono" style="font-size:12px; color:rgba(233,237,247,.75); white-space:pre-wrap"></div>
-            </div>
-
-            <div class="callout" style="border-color: rgba(45,212,255,.18); background: rgba(45,212,255,.06)">
-              Safety: Only use the deposit address shown on this official website.
-              Beware of impostor links and fake tokens.
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
-    <!-- HOW TO BUY -->
-    <section class="section" id="how">
-      <div class="grid">
-        <div class="card col-6 box">
-          <h2 style="margin:0 0 10px; font-size:20px; letter-spacing:-.35px">HOW TO BUY</h2>
-          <p class="muted">
-            Simple, chain-agnostic guide. Use the official links above.
-          </p>
-          <ol class="clean">
-            <li>Install a wallet that supports the network (example: Sui wallet).</li>
-            <li>Get some SUI and fund your wallet.</li>
-            <li>Use the official DEX link or the ATM Swap section.</li>
-            <li>Verify the Contract Address (CA) before swapping.</li>
-            <li>Never trust random DMs. Only official site links.</li>
-          </ol>
-          <div class="callout">
-            Tip: For beginners, the ATM Swap flow is easier than manual swapping.
-          </div>
-        </div>
-
-        <div class="card col-6 box" id="tokenomics">
-          <h2 style="margin:0 0 10px; font-size:20px; letter-spacing:-.35px">TOKENOMICS</h2>
-          <p class="muted">Edit the numbers in the CONFIG section inside the script.</p>
-
-          <div class="kpis">
-            <div class="kpi">
-              <div>
-                <b>Total Supply</b><br/>
-                <span class="mono" id="supply">1,000,000,000</span>
-              </div>
-              <span>fixed</span>
+    <footer class="border-t-2 border-neon-cyan/30 bg-[#02030a] pt-16 pb-8 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center items-center gap-4 mb-8 glitch-text">
+                <i class="fa-solid fa-atom text-3xl text-neon-cyan fa-spin" style="--fa-animation-duration: 10s;"></i>
+                <span class="font-heading font-black text-2xl tracking-widest text-white">MR. QUANTUM</span>
             </div>
-
-            <div class="kpi">
-              <div>
-                <b>Liquidity</b><br/>
-                <span id="liq">70%</span>
-              </div>
-              <span>DEX</span>
-            </div>
-
-            <div class="kpi">
-              <div>
-                <b>Community</b><br/>
-                <span id="comm">20%</span>
-              </div>
-              <span>events</span>
-            </div>
-
-            <div class="kpi">
-              <div>
-                <b>Treasury / Ops</b><br/>
-                <span id="ops">10%</span>
-              </div>
-              <span>public wallet</span>
-            </div>
-          </div>
-
-          <div class="callout">
-            No taxes, no nonsense. Keep it simple and transparent.
-          </div>
+            
+            <p class="text-xs text-gray-500 leading-relaxed max-w-3xl mx-auto font-mono mb-8 border-y border-gray-900 py-8">
+                <strong>LEGAL DISCLAIMER:</strong> $MRQ is a memetic social experiment built on the SUI network. 
+                It possesses no intrinsic value and should not be considered an investment. 
+                The "Swap" interface is a simulation tool for entertainment. 
+                We are not liable for losses due to quantum fluctuations or ape-ing too hard. 
+                <span class="text-neon-purple">Not financial advice. DYOR.</span>
+            </p>
+            <p class="text-xs text-gray-600 font-mono">© 2024 Mr. Quantum Labs. All rights reserved in this timeline.</p>
         </div>
-      </div>
-    </section>
-
-    <!-- ROADMAP -->
-    <section class="section" id="roadmap">
-      <div class="card box">
-        <h2 style="margin:0 0 10px; font-size:20px; letter-spacing:-.35px">ROADMAP</h2>
-        <p class="muted">
-          The roadmap is an execution log. Community momentum first, clean iterations always.
-        </p>
-
-        <div class="grid">
-          <div class="card col-4 box" style="background:rgba(255,255,255,.03)">
-            <h2 style="font-size:16px; margin:0 0 8px">Phase 1</h2>
-            <p class="muted">Launch · Meme · Establish official channels</p>
-            <ul class="clean">
-              <li>Official website + CA pinned</li>
-              <li>DEX listing + liquidity</li>
-              <li>First meme contest</li>
-            </ul>
-          </div>
-
-          <div class="card col-4 box" style="background:rgba(255,255,255,.03)">
-            <h2 style="font-size:16px; margin:0 0 8px">Phase 2</h2>
-            <p class="muted">Vibes · Community rewards · Partner collabs</p>
-            <ul class="clean">
-              <li>Creator rewards</li>
-              <li>Community events</li>
-              <li>Collab wave</li>
-            </ul>
-          </div>
-
-          <div class="card col-4 box" style="background:rgba(255,255,255,.03)">
-            <h2 style="font-size:16px; margin:0 0 8px">Phase 3</h2>
-            <p class="muted">Meme takeover · Brand expansion</p>
-            <ul class="clean">
-              <li>Major campaigns</li>
-              <li>On-chain utility experiments</li>
-              <li>Global community push</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="callout" style="margin-top:14px">
-          Mr. Quantum is a meme coin with no intrinsic value or expectation of financial return.
-          It exists for entertainment and community culture.
-        </div>
-      </div>
-    </section>
-
-    <footer class="foot">
-      <div>© <span id="year"></span> Mr. Quantum (MRQTUM)</div>
-      <div>Not financial advice · Built for memes, not promises.</div>
     </footer>
-  </main>
 
-  <script>
-    // =========================
-    // CONFIG (EDIT HERE ONLY)
-    // =========================
-    const CONFIG = {
-      network: "Sui",
-      contractAddress: "TBA — paste contract address",
-
-      links: {
-        dex: "https://example.com",       // DEX swap link
-        x: "https://x.com/example",       // X
-        telegram: "https://t.me/example", // Telegram
-        docs: "https://example.com/docs"  // Docs
-      },
-
-      tokenomics: {
-        supply: "1,000,000,000",
-        liquidity: "70%",
-        community: "20%",
-        ops: "10%"
-      },
-
-      atm: {
-        // 너의 PC 봇/서버 API 주소로 바꿔라.
-        // - 로컬 테스트: http://127.0.0.1:8787 (단, 외부 사용자는 접속 불가)
-        // - 배포 후: https://api.yourdomain.com
-        apiBase: "http://127.0.0.1:8787",
-
-        // explorer
-        explorerAddress: (addr) => `https://suiexplorer.com/address/${encodeURIComponent(addr)}`,
-        explorerTx: (tx) => `https://suiexplorer.com/tx/${encodeURIComponent(tx)}`,
-      }
-    };
-
-    // =========================
-    // APPLY CONFIG
-    // =========================
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const elNetwork = document.getElementById("network");
-    const elCA = document.getElementById("ca");
-
-    elNetwork.textContent = CONFIG.network;
-    elCA.textContent = CONFIG.contractAddress;
-
-    // links
-    const setLink = (id, url) => {
-      const el = document.getElementById(id);
-      if(!el) return;
-      el.href = url || "#";
-    };
-    setLink("linkDex", CONFIG.links.dex);
-    setLink("linkX", CONFIG.links.x);
-    setLink("linkTg", CONFIG.links.telegram);
-    setLink("linkDocs", CONFIG.links.docs);
-
-    // buy button
-    const buyBtn = document.getElementById("buyBtn");
-    buyBtn.href = CONFIG.links.dex || "#";
-
-    // tokenomics
-    document.getElementById("supply").textContent = CONFIG.tokenomics.supply;
-    document.getElementById("liq").textContent = CONFIG.tokenomics.liquidity;
-    document.getElementById("comm").textContent = CONFIG.tokenomics.community;
-    document.getElementById("ops").textContent = CONFIG.tokenomics.ops;
-
-    // Copy utils
-    async function copyText(text, statusEl){
-      try{
-        await navigator.clipboard.writeText(text);
-        if(statusEl){
-          statusEl.textContent = "Copied.";
-          setTimeout(()=> statusEl.textContent = "", 1200);
-        }
-      }catch{
-        if(statusEl){
-          statusEl.textContent = "Copy failed.";
-          setTimeout(()=> statusEl.textContent = "", 1800);
-        }
-      }
-    }
-
-    // Copy CA
-    document.querySelectorAll("[data-copy]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const target = document.querySelector(btn.getAttribute("data-copy"));
-        const text = (target?.textContent || "").trim();
-        copyText(text, document.getElementById("copyStatus"));
-      });
-    });
-
-    document.getElementById("copyCA")?.addEventListener("click", () => {
-      copyText((CONFIG.contractAddress || "").trim(), document.getElementById("copyStatus"));
-    });
-
-    // =========================
-    // ATM SWAP (Frontend UI)
-    // =========================
-    const ATM_API_BASE = CONFIG.atm.apiBase;
-
-    const elAtmStatus = document.getElementById("atmStatus");
-    const elAtmAddr   = document.getElementById("atmDepositAddr");
-    const elAtmRate   = document.getElementById("atmRate");
-    const elAtmMin    = document.getElementById("atmMin");
-    const elAtmOrder  = document.getElementById("atmOrderId");
-    const elAtmDepTx  = document.getElementById("atmDepositTx");
-    const elAtmPayTx  = document.getElementById("atmPayoutTx");
-    const elAtmLog    = document.getElementById("atmLog");
-    const linkAtmAddr = document.getElementById("atmExplorerAddr");
-
-    const logATM = (msg) => {
-      const ts = new Date().toLocaleTimeString();
-      elAtmLog.textContent = `[${ts}] ${msg}\n` + elAtmLog.textContent;
-    };
-
-    async function apiGet(path){
-      const res = await fetch(`${ATM_API_BASE}${path}`, { method:"GET" });
-      if(!res.ok){
-        const t = await res.text().catch(()=> "");
-        throw new Error(`API ${res.status}: ${t || "request failed"}`);
-      }
-      return res.json();
-    }
-
-    async function apiPost(path, body){
-      const res = await fetch(`${ATM_API_BASE}${path}`, {
-        method:"POST",
-        headers:{ "Content-Type":"application/json" },
-        body: JSON.stringify(body || {})
-      });
-      if(!res.ok){
-        const t = await res.text().catch(()=> "");
-        throw new Error(`API ${res.status}: ${t || "request failed"}`);
-      }
-      return res.json();
-    }
-
-    async function loadATMConfig(){
-      try{
-        // expected: { depositAddress, rateText, minText }
-        const cfg = await apiGet("/api/atm/config");
-
-        if(cfg.depositAddress) elAtmAddr.textContent = cfg.depositAddress;
-        if(cfg.rateText) elAtmRate.textContent = cfg.rateText;
-        if(cfg.minText) elAtmMin.textContent = cfg.minText;
-
-        linkAtmAddr.href = CONFIG.atm.explorerAddress(elAtmAddr.textContent.trim());
-        logATM("ATM config loaded.");
-      }catch(e){
-        linkAtmAddr.href = CONFIG.atm.explorerAddress(elAtmAddr.textContent.trim());
-        logATM(`Config load failed: ${e.message}`);
-        logATM("If you haven't started your backend engine yet, this is normal.");
-      }
-    }
-
-    async function createOrder(){
-      try{
-        elAtmStatus.textContent = "Creating…";
-        // expected: { orderId, expiresAt }
-        const data = await apiPost("/api/atm/order", {});
-        elAtmOrder.textContent = data.orderId || "—";
-        elAtmStatus.textContent = "Order created";
-        logATM(`Order created: ${elAtmOrder.textContent}`);
-        logATM("Now send SUI to the deposit address. Then click Check Status.");
-      }catch(e){
-        elAtmStatus.textContent = "Order failed";
-        logATM(`Order create failed: ${e.message}`);
-      }
-    }
-
-    async function checkStatus(){
-      try{
-        const orderId = (elAtmOrder.textContent || "").trim();
-        if(!orderId || orderId === "—"){
-          logATM("Create Order first.");
-          return;
+    <script>
+        function copyAddress() {
+            const address = document.getElementById('wallet-address').innerText;
+            navigator.clipboard.writeText(address).then(() => {
+                const msg = document.getElementById('copy-msg');
+                msg.style.opacity = '1';
+                setTimeout(() => {
+                    msg.style.opacity = '0';
+                }, 2000);
+            });
         }
 
-        elAtmStatus.textContent = "Checking…";
-
-        // expected:
-        // { status, depositTx, payoutTx, message }
-        const s = await apiGet(`/api/atm/status?orderId=${encodeURIComponent(orderId)}`);
-
-        elAtmStatus.textContent = s.status || "Unknown";
-
-        if(s.depositTx){
-          elAtmDepTx.innerHTML = `<a href="${CONFIG.atm.explorerTx(s.depositTx)}" target="_blank" rel="noopener noreferrer">${s.depositTx}</a>`;
+        // 입자 배경 생성
+        function createParticles() {
+            const body = document.body;
+            const count = 50;
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                
+                const duration = Math.random() * 10 + 5;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                body.appendChild(particle);
+            }
         }
-        if(s.payoutTx){
-          elAtmPayTx.innerHTML = `<a href="${CONFIG.atm.explorerTx(s.payoutTx)}" target="_blank" rel="noopener noreferrer">${s.payoutTx}</a>`;
-        }
-        if(s.message) logATM(s.message);
-        logATM(`Status: ${elAtmStatus.textContent}`);
-      }catch(e){
-        elAtmStatus.textContent = "Check failed";
-        logATM(`Status check failed: ${e.message}`);
-      }
-    }
-
-    document.getElementById("atmCopyAddr")?.addEventListener("click", () => {
-      copyText(elAtmAddr.textContent.trim());
-      logATM("Deposit address copied.");
-    });
-
-    document.getElementById("atmCreateOrder")?.addEventListener("click", createOrder);
-    document.getElementById("atmCheck")?.addEventListener("click", checkStatus);
-
-    // Init
-    loadATMConfig();
-  </script>
+        createParticles();
+    </script>
 </body>
 </html>
